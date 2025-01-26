@@ -20,7 +20,7 @@ intents.voice_states = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 
-durk = os.environ.get('token')
+durk = os.environ.get('DISCORD_TOKEN')
 
 @bot.event
 async def on_ready():
