@@ -8,6 +8,7 @@ import random
 import string
 import requests
 from discord.ext import commands, tasks
+from dotenv import load_dotenv
 import os
 
 intents = discord.Intents.default()
@@ -20,7 +21,9 @@ intents.voice_states = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 
-durk = os.environ.get('DISCORD_TOKEN')
+
+load_dotenv()  
+durk = os.getenv("DISCORD_TOKEN")
 
 @bot.event
 async def on_ready():
