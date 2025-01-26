@@ -8,8 +8,7 @@ import random
 import string
 import requests
 from discord.ext import commands, tasks
-import os
-import pyautogui
+
 
 
 intents = discord.Intents.default()
