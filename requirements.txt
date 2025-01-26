@@ -1,1 +1,7 @@
-
+discord.py
+time
+random
+os
+pyautogui
+string
+os
