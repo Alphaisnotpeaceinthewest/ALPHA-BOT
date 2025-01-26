@@ -237,4 +237,4 @@ async def verify(vm):
 
 
 
-bot.run('MTAwNTUwNDk5MzI5MTQwMzQ0NQ.GzYx7_.T02KW8WbP0wkWaFb0e_ny1uL3K8xaIfjv3sr88')
+bot.run('MTAwNTUwNDk5MzI5MTQwMzQ0NQ.Gur1gH.vXXE4x9llrzwbgDx4kcjyVsyyW3_OpphbPKi6w')
