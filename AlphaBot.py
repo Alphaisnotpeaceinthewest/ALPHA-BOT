@@ -5,10 +5,11 @@ from discord.app_commands import command
 from discord.ext import commands
 import time 
 import random
+from dotenv import load_dotenv
 import string
 import requests
 from discord.ext import commands, tasks
-
+import os
 
 
 intents = discord.Intents.default()
@@ -17,6 +18,8 @@ intents.guilds = True
 intents.members = True 
 intents.voice_states = True
 
+load_dotenv() 
+token = os.getenv('TOKEN') 
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -237,4 +240,4 @@ async def verify(vm):
 
 
 
-bot.run('MTAwNTUwNDk5MzI5MTQwMzQ0NQ.Gur1gH.vXXE4x9llrzwbgDx4kcjyVsyyW3_OpphbPKi6w')
+bot.run(token)
