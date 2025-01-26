@@ -23,7 +23,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 
 load_dotenv()  
-durk = os.getenv("DISCORD_TOKEN")
+durk = os.getenv("BOT_ENV")
 
 @bot.event
 async def on_ready():
