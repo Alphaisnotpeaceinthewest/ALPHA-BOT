@@ -8,7 +8,7 @@ import random
 import string
 import requests
 from discord.ext import commands, tasks
-
+import os
 
 intents = discord.Intents.default()
 intents.message_content = True  
@@ -19,6 +19,8 @@ intents.voice_states = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+
+durk = os.environ.get('token')
 
 @bot.event
 async def on_ready():
@@ -236,4 +238,4 @@ async def verify(vm):
 
 
 
-bot.run("MTAwNTUwNDk5MzI5MTQwMzQ0NQ.Gur1gH.vXXE4x9llrzwbgDx4kcjyVsyyW3_OpphbPKi6w")
+bot.run(durk)
