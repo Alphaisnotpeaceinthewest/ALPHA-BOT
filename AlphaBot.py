@@ -8,8 +8,6 @@ import random
 import string
 import requests
 from discord.ext import commands, tasks
-from dotenv import load_dotenv
-import os
 
 intents = discord.Intents.default()
 intents.message_content = True  
@@ -22,8 +20,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 
 
-load_dotenv()  
-durk = os.getenv("BOT_ENV")
+durk = "MTAwNTUwNDk5MzI5MTQwMzQ0NQ.Gur1gH.vXXE4x9llrzwbgDx4kcjyVsyyW3_OpphbPKi6w"
 
 @bot.event
 async def on_ready():
