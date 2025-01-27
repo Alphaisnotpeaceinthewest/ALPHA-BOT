@@ -4,6 +4,7 @@ import asyncio
 import os
 import time
 import random
+import multiprocessing
 import alphabotflask 
 from alphabotflask import start_flask_thread
 from alphabotflask import run_flask
@@ -254,9 +255,10 @@ async def vr(ctx):
 
 
 async def main():
-    #start_flask_thread()
-    #run_flask()
-    
+    start_flask_thread()
+    loop = asyncio.get_event_loop()
+    loop.create_task(start_bot())
+    loop.run_forever()
 
     await bot.start(TOKEN)
 
