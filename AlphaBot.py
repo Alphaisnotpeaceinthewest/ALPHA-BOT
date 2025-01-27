@@ -5,6 +5,7 @@ import os
 import time
 import random
 import alphabotflask 
+import requests
 from alphabotflask import start_flask_thread
 from alphabotflask import run_flask
 
@@ -251,13 +252,27 @@ async def vr(ctx):
     await ctx.send("I don't have permission to give roles, high my role")
 
 
+def keep_alive():
+    while True:
+        try:
+            requests.get("http://127.0.0.1:10000")
+        except requests.exceptions.RequestException as e:
+            print(f"Error pinging Flask: {e}")
+        time.sleep(60) 
+
+
+@bot.event
+async def on_disconnect():
+    await bot.close()  
+    await asyncio.sleep(5)  
+    await bot.start(TOKEN)
 
 
 async def main():
     start_flask_thread()
-     await bot.start(TOKEN)
+    
+    await bot.start(TOKEN)
     
 
 if __name__ == "__main__":
-    asyncio.create_task(main())
-    asyncio.get_event_loop().run_forever() 
+    asyncio.run(main())
