@@ -57,37 +57,7 @@ async def dm(ctx, *, message: str):
      await ctx.author.send("Function Was Running")
     else:
         await ctx.send("You dont have a fucking permmission")
-  
 
-def generate_password(length=12):
-    characters = string.ascii_letters + string.digits + string.punctuation
-    password = ''.join(random.choice(characters) for _ in range(length))
-    return password
-
-
-@bot.command()
-async def genpass(ctx, length: int = 12):
-    await ctx.send("Password is getting generate")
-    time.sleep(1)
-    password = generate_password(length)
-    await ctx.send(f"Your generated password: `{password}`")
-    
-
-@bot.command()
-async def genimage(ctx, *, message: str = None):
-    if message == None:
-        await ctx.send("!genimage (link)")
-        linkimage = message 
-        await ctx.send(linkimage)
-
-
-@bot.command()
-async def userid(vm):
-   await vm.send("You're userid")
-   ser_id = vm.author.id
-   await vm.send(ser_id)
-   return
-   
 
 @bot.command()
 @commands.has_permissions(manage_messages=True)
@@ -110,16 +80,6 @@ async def dconfig(cfn):
     else: 
       await cfn.send("This command only for bot owner")
     
-
-
-@bot.command()
-async def pcTip(ctx):
-     await ctx.send(f"https://mega.nz/file/vd8mhZDb#A4_t6nJkF50j1ydVhyPAgBQWW6N3yCb7OxOOpa6mITg")
-     await ctx.send("Second Link")
-     await ctx.send(f"https://mega.nz/file/2Z0mySjZ#TcKEiDTlTO-VJa_qkFbMfRydibq7eITVKZSjpVgGH4s")
-     time.sleep(0.2)
-     await ctx.send("Here is a mega links, you can download for some none use files in you're device (PC)")
-
 
 
 @bot.command()
