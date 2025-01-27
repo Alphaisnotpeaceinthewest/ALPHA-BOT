@@ -36,9 +36,18 @@ async def hello(ctx):
 
 
 async def main():
-    start_flask_thread()  # Start the Flask app in a separate thread
+    start_flask_thread()  
     await bot.start(TOKEN)
+    
+    
 
 # Only run if this file is executed directly
 if __name__ == "__main__":
     asyncio.run(main())
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    
+    loop.run_until_complete(main())
