@@ -22,6 +22,5 @@ def run_flask():
 
 
 def start_flask_thread():
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.daemon = True 
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
