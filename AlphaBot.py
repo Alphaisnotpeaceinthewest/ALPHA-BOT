@@ -255,7 +255,7 @@ async def vr(ctx):
 
 async def main():
     #start_flask_thread()
-    run_flask()
+    #run_flask()
     
 
     await bot.start(TOKEN)
