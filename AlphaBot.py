@@ -251,15 +251,13 @@ async def vr(ctx):
     await ctx.send("I don't have permission to give roles, high my role")
 
 
-async def start_bot():
-    await bot.start(TOKEN)
+
 
 async def main():
     start_flask_thread()
-    loop = asyncio.get_event_loop()
-    loop.create_task(start_bot())
-    loop.run_forever()
+     await bot.start(TOKEN)
     
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.create_task(main())
+    asyncio.get_event_loop().run_forever() 
