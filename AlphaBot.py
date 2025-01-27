@@ -2,11 +2,10 @@ import discord
 from discord.ext import commands
 import asyncio
 import os
-from flask import Flask
+from flask import Flask, send_from_directory
 import threading
 import time
 import random
-
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -23,7 +22,6 @@ if not TOKEN:
 else:
     print("Token loaded successfully.")
 
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -34,77 +32,63 @@ def home():
 def favicon():
     return send_from_directory(os.getcwd(), 'favicon.ico', mimetype='image/x-icon')
 
-
 def run_flask():
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, use_reloader=False)  # Prevent reloader from starting a new thread
 
+def start_flask_thread():
+    flask_thread = threading.Thread(target=run_flask)
+    flask_thread.start()
 
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Communities"))
     print(f'Logged in as {bot.user}!')
 
-
-def start_flask_thread():
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.start()
-
-
-
-
 user_id = 850383728022519859
 
 @bot.command()
 async def dm(ctx, *, message: str):
     if ctx.author.id == user_id:
-     for member in ctx.guild.members:
+        for member in ctx.guild.members:
             try:
-              await member.create_dm()  
-              await member.dm_channel.send(message)
+                await member.create_dm()  
+                await member.dm_channel.send(message)
             except Exception as e:
-                await ctx.author.send("Message was failed sended to some users in the server")
-     await ctx.author.send("Function Was Running")
+                await ctx.author.send(f"Message failed to send to some users in the server: {e}")
+        await ctx.author.send("Function is running")
     else:
-        await ctx.send("You dont have a fucking permmission")
-  
-   
+        await ctx.send("You don't have permission to use this command.")
 
 @bot.command()
 @commands.has_permissions(manage_messages=True)
-async def clear(clr, amount: int):
-  try:
-     deleted = await clr.channel.purge(limit=amount)
-  except Exception:
-        await clr.send("Unknown Message was failed deleted")
+async def clear(ctx, amount: int):
+    try:
+        deleted = await ctx.channel.purge(limit=amount)
+    except Exception:
+        await ctx.send("An error occurred while deleting messages.")
 
-    
-    
 Alpha_id = 850383728022519859
 
 @bot.command()
-async def dconfig(cfn):
-    server_id = cfn.guild.id
+async def dconfig(ctx):
+    server_id = ctx.guild.id
     time.sleep(1)
-    if cfn.author.id == Alpha_id:
-     await cfn.send(server_id)
+    if ctx.author.id == Alpha_id:
+        await ctx.send(f"Server ID: {server_id}")
     else: 
-      await cfn.send("This command only for bot owner")
-    
-
+        await ctx.send("This command is only for the bot owner.")
 
 @bot.command()
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, member: discord.Member, *, reason=None):
     guild = ctx.guild
-    await member.ban(reason=reason)
-    if reason == None:
-        reason = "No reason was provide"
-        return
-    
-    await member.send(f"You was banned from **{guild.name}** for {reason}")
-    await ctx.send("Member was banned")
-    
+    await member.ban(reason=reason or "No reason provided")
+    try:
+        await member.send(f"You were banned from **{guild.name}** for {reason or 'No reason provided'}")
+    except discord.Forbidden:
+        print("Could not send DM to banned user.")
+    await ctx.send(f"{member.name} has been banned.")
 
 @bot.command()
 @commands.has_permissions(ban_members=True)
@@ -112,24 +96,21 @@ async def unban(ctx, user_id: int):
     try:
         user = await bot.fetch_user(user_id)
         await ctx.guild.unban(user)
-        await ctx.author.send(f"{user.mention} is unbanned")
+        await ctx.send(f"{user.mention} has been unbanned.")
     except Exception as e:
         await ctx.send(f"An error occurred: {e}")
 
-
 @bot.command()
-async def cmds(hlp):
-        help_text = (
+async def cmds(ctx):
+    help_text = (
         "**Available Commands:**\n"
         "`!cmds` - Displays this help message.\n"
-        "`!clear <number>` - any amount.\n"
-        "`!dm` - !dm (mention user) only works for some roles.\n"
-        "`!ban (mention_member) (reason)` - Banning any member in the server, using !ban\n"
-        "`!unban` - unban (userid)\n"
+        "`!clear <number>` - Deletes the specified number of messages.\n"
+        "`!dm <message>` - Send a DM to all members.\n"
+        "`!ban <user> <reason>` - Ban a member.\n"
+        "`!unban <user_id>` - Unban a user by ID.\n"
     )
-        await hlp.send(help_text)
-
-
+    await ctx.send(help_text)
 
 @bot.event
 async def on_message(message):
@@ -138,28 +119,13 @@ async def on_message(message):
 
     words = ["شرموط", "nigga", "btich", "bitch", "jerk", "niggers", "كس", "تلحس طيزي", "تلحس بذاتي", "LGBTQ", "gay", "lesbain", "fucker", "fuck", "gyat", "منيك", "زب", "اري", "sex", "dick", "motherfucker", "motherair", "motherks", "fucking", "boobs"]
 
-    
-
-    
     if any(word in message.content.lower() for word in words):
-           await message.delete()
-           await message.channel.send("Message was deleted, for blocked content")
-    
-
-    
-    if "https" in message.content.lower():
-          await message.delete()
-          await message.channel.send("https links are not allowed")
-
-
-    if "www" in message.content.lower():
         await message.delete()
-        await message.channel.send("links are not allowed")
-
-
-    if "هل يجوز" in message.content.lower():
-         await message.channel.send("يجوزززززز")
-
+        await message.channel.send("Message was deleted due to blocked content.")
+        
+    if "https" in message.content.lower() or "www" in message.content.lower():
+        await message.delete()
+        await message.channel.send("Links are not allowed.")
 
     await bot.process_commands(message)
 
@@ -273,10 +239,12 @@ async def vr(ctx):
 
 
 
+
+
 async def main():
     # Start Flask server in a separate thread
     start_flask_thread()
-    
+
     # Start the Discord bot
     await bot.start(TOKEN)
 
