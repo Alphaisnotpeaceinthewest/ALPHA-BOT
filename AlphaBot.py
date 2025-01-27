@@ -6,6 +6,7 @@ import time
 import random
 import alphabotflask 
 from alphabotflask import start_flask_thread
+from alphabotflask import run_flask
 
 
 intents = discord.Intents.default()
