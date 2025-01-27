@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import asyncio
 import requests
+import random
+import time
 from alphabotflask import start_flask_thread
 from alphabotflask import run_flask
 
