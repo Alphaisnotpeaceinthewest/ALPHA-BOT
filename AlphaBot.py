@@ -248,6 +248,6 @@ async def verify(vm):
     await vm.author.add_roles(role)
 
 
-fake_web_server()
+asyncio.create_task(fake_web_server())
 
 bot.run(TOKEN)
