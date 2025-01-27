@@ -251,7 +251,7 @@ async def vr(ctx):
     await ctx.send("I don't have permission to give roles, high my role")
 
 
-def start_bot():
+async def start_bot():
     await bot.start(TOKEN)
 
 async def main():
