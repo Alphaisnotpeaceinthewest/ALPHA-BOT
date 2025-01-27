@@ -10,6 +10,8 @@ import requests
 from discord.ext import commands, tasks
 import os
 import asyncio
+import http.server
+import socketserver
 
 
 intents = discord.Intents.default()
@@ -40,6 +42,15 @@ async def fake_web_server():
     server = await asyncio.start_server(lambda r, w: None, '0.0.0.0', port)
     async with server:
         await server.serve_forever()
+
+
+PORT = 8080
+
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print(f"Serving at port {PORT}")
+    httpd.serve_forever()
 
 
 
