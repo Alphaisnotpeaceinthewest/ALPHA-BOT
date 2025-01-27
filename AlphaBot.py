@@ -107,20 +107,6 @@ async def unban(ctx, user_id: int):
         await ctx.send(f"An error occurred: {e}")
 
 
-@bot.command()
-async def cmds(hlp):
-        help_text = (
-        "**Available Commands:**\n"
-        "`!cmds` - Displays this help message.\n"
-        "`!clear <number>` - any amount.\n"
-        "`!dm` - !dm (mention user) only works for some roles.\n"
-        "`!ban (mention_member) (reason)` - Banning any member in the server, using !ban\n"
-        "`!unban` - unban (userid)\n"
-    )
-        await hlp.send(help_text)
-
-
-
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
