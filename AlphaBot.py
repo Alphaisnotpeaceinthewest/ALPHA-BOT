@@ -21,6 +21,10 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
+if not TOKEN:
+    print("Error: Bot token not found in environment variables.")
+else:
+    print("Token loaded successfully.")
 
 @bot.event
 async def on_ready():
