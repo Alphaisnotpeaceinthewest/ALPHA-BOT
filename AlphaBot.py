@@ -208,6 +208,9 @@ async def verify(vm):
     await vm.author.add_roles(role)
 
 
-asyncio.create_task(fake_web_server())
+async def main():
+    asyncio.create_task(fake_web_server())
+    # Your bot's actual startup command
+    await bot.start(TOKEN)
 
-bot.run(TOKEN)
+asyncio.run(main())
