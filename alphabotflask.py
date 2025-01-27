@@ -7,6 +7,10 @@ import os
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return "Bot is running!"
+
 @app.route('/ping')
 def ping():
     return "OK", 200
