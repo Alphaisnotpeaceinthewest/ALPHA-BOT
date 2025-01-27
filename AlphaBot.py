@@ -9,6 +9,8 @@ import string
 import requests
 from discord.ext import commands, tasks
 import os
+import asyncio
+
 
 intents = discord.Intents.default()
 intents.message_content = True  
@@ -32,6 +34,12 @@ async def on_ready():
     print(f'Logged in as {bot.user}!')
 
 
+
+async def fake_web_server():
+    port = int(os.environ.get("PORT", 8080))  # Render defaults to port 10000 or 8080
+    server = await asyncio.start_server(lambda r, w: None, '0.0.0.0', port)
+    async with server:
+        await server.serve_forever()
 
 
 
@@ -240,6 +248,6 @@ async def verify(vm):
     await vm.author.add_roles(role)
 
 
-
+fake_web_server()
 
 bot.run(TOKEN)
