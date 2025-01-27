@@ -31,8 +31,16 @@ async def on_ready():
 
 
 @bot.command()
-async def hello(ctx):
-    await ctx.send(f"Hello! {ctx.mention}")
+async def cmds(hlp):
+        help_text = (
+        "**Available Commands:**\n"
+        "`!cmds` - Displays this help message.\n"
+        "`!clear <number>` - any amount.\n"
+        "`!dm` - !dm (mention user) only works for some roles.\n"
+        "`!ban (mention_member) (reason)` - Banning any member in the server, using !ban\n"
+        "`!unban` - unban (userid)\n"
+    )
+        await hlp.send(help_text)
 
 
 async def main():
