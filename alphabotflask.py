@@ -1,6 +1,6 @@
 from flask import Flask
-import threading
 import time
+import multiprocessing
 from flask import Flask, send_from_directory
 import os
 
@@ -22,6 +22,6 @@ def run_flask():
 
 
 def start_flask_thread():
-    flask_thread = threading.Thread(target=run_flask)
+    flask_thread = multiprocessing.Process(target=run_flask)
     flask_thread.daemon = True 
     flask_thread.start()
