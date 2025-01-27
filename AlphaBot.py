@@ -59,7 +59,15 @@ async def dm(ctx, *, message: str):
      await ctx.author.send("Function Was Running")
     else:
         await ctx.send("You dont have a fucking permmission")
-  
+
+
+@bot.command()
+async def quit(ctx):
+    if ctx.author.id == user_id:
+      await ctx.send("BOT WERE OFFLINE")
+      await bot.close()
+    else:
+        await ctx.send("NO PERMISSION")
    
 
 @bot.command()
