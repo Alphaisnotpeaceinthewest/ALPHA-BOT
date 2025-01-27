@@ -24,7 +24,8 @@ else:
 
 # Web server setup
 async def fake_web_server():
-    port = int(os.environ.get("PORT", 8080))  # Render defaults to port 10000 or 8080
+    port = int(os.environ.get("PORT", 8080))  # Ensure we use the right port dynamically
+    print(f"Starting web server on port {port}")  # Debugging statement to confirm the port
     server = await asyncio.start_server(lambda r, w: None, '0.0.0.0', port)
     async with server:
         await server.serve_forever()
