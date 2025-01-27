@@ -253,7 +253,8 @@ async def vr(ctx):
 
 
 async def main():
-    start_flask_thread()
+    #start_flask_thread()
+    
     
 
     await bot.start(TOKEN)
