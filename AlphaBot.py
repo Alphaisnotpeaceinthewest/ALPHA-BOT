@@ -20,7 +20,6 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 
 
-durk = "MTAwNTUwNDk5MzI5MTQwMzQ0NQ.Gur1gH.vXXE4x9llrzwbgDx4kcjyVsyyW3_OpphbPKi6w"
 
 @bot.event
 async def on_ready():
@@ -238,4 +237,4 @@ async def verify(vm):
 
 
 
-bot.run(durk)
+bot.run("MTAwNTUwNDk5MzI5MTQwMzQ0NQ.G4gkBQ.0nbNF1jOSNGKA5YLkrTVznEbbRm33cb3jqb_Ms")
