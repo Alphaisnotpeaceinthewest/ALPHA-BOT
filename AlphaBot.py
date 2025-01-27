@@ -54,6 +54,34 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
 
 
 
+
+from http.server import SimpleHTTPRequestHandler
+from urllib.parse import urlparse
+
+class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        # If the request is for the favicon, serve the icon file
+        if self.path == '/favicon.ico':
+            self.send_response(200)
+            self.send_header('Content-Type', 'image/x-icon')
+            self.end_headers()
+            with open('favicon.ico', 'rb') as f:
+                self.wfile.write(f.read())
+        else:
+            super().do_GET()
+
+if __name__ == "__main__":
+    from socketserver import TCPServer
+    PORT = 8080
+    handler = CustomHTTPRequestHandler
+    with TCPServer(("", PORT), handler) as httpd:
+        print(f"Serving at port {PORT}")
+        httpd.serve_forever()
+
+
+
+
+
 user_id = 850383728022519859
 
 @bot.command()
